@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lk.play.user.dao.MenuDao">
+   <insert id="insert">
+      insert into menu(
+       id,
+       name,
+       permission
+       ) values (
+       #{id},
+       #{name},
+       #{permission}
+       )
+   </insert>
+   
+   <select id="getAll" resultType="Menu">
+      select 
+      *
+      from menu 
+   </select>
+   
+   <select id="get" resultType="Menu">
+      select 
+      *
+      from menu
+      where id = #{id}
+   </select>
+   
+   <delete id="delete">
+      delete from menu 
+      where id = #{id}
+   </delete>
+   
+   <update id="update">
+      update menu set
+      name = #{name},
+      permission = #{permission}
+      where id = #{id}
+   </update>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lk.play.user.dao.RoleDao">
+   <insert id="insert">
+      insert into role(
+       id,
+       name,
+       en_name
+       ) values (
+       #{id},
+       #{name},
+       #{enName}
+       )
+   </insert>
+   
+   <insert id="insertRoleMenu">
+		INSERT INTO role_menu(role_id, menu_id)
+		<foreach collection="menuList" item="menu" separator=" union all ">
+			SELECT
+			#{id}, #{menu.id} FROM dual
+		</foreach>
+	</insert>
+	
+   
+   <select id="get" resultType="Role">
+      select 
+      *
+      from role 
+      where id = #{id} 
+   </select>
+   
+   <select id="getAll" resultType="Role">
+      select 
+      *
+      from role
+   </select>
+   
+   <select id="getRole" resultType="String">
+     select 
+     r.en_name 
+     from 
+     role r, user u, user_role ur
+     where
+     u.id = ur.user_id 
+     and ur.role_id = r.id 
+     and u.id = #{id} 
+   </select>
+   
+   <delete id="delete">
+      delete from role 
+      where id = #{id}      
+   </delete>
+   
+   <update id="update">
+      update role set
+      name = #{name},
+      en_name = #{enName}
+      where id = #{id}
+   </update>
+</mapper>
